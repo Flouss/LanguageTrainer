@@ -63,7 +63,7 @@ namespace LanguageTrainer
             if (lessonTuples.Count == 0)
                 return;
 
-            lblTimer.Text = "60";
+            lblTimerValue.Text = "60";
             QuestionTimer.Start();
             lblQuestionValue.ForeColor = Color.Black;
             ResetAnswerCounts();
@@ -85,6 +85,7 @@ namespace LanguageTrainer
             {
                 CleanUpExerciseFinished();
                 DisplayScore();
+                return;
             }
 
             var keyValuePair = PopNextTuple();
@@ -185,6 +186,7 @@ namespace LanguageTrainer
 
         private void CleanUpExerciseFinished()
         {
+            AnswerTimer.Stop();
             QuestionTimer.Stop();
             lblAnswerValue.Visible = false;
             txtAnswer.Clear();
@@ -192,7 +194,7 @@ namespace LanguageTrainer
 
         private void CleanUpForNextQuestion()
         {
-            lblTimer.Text = "60";
+            lblTimerValue.Text = "60";
             AnswerTimer.Stop();
             txtAnswer.Clear();
             txtAnswer.Focus();
@@ -201,21 +203,21 @@ namespace LanguageTrainer
 
         private void QuestionTickTimer_Tick(object sender, EventArgs e)
         {
-            var lblTimerValue = int.Parse(lblTimer.Text) - 1;
-            lblTimer.Text = lblTimerValue.ToString();
+            var timerValue = int.Parse(lblTimerValue.Text) - 1;
+            lblTimerValue.Text = timerValue.ToString();
 
-            if (lblTimerValue > 0 && lblTimerValue <= 10)
+            if (timerValue > 0 && timerValue <= 10)
             {
-                lblTimer.ForeColor = Color.Red;
+                lblTimerValue.ForeColor = Color.Red;
             }
-            else if (lblTimerValue == 0)
+            else if (timerValue == 0)
             {
                 DisplayAnswer();
                 QuestionTimer.Stop();
             }
             else
             {
-                lblTimer.ForeColor = Color.Black;
+                lblTimerValue.ForeColor = Color.Black;
             }
         }
     }

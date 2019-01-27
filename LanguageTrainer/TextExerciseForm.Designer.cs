@@ -40,9 +40,10 @@
             this.lblQuestion = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
-            this.lblTimer = new System.Windows.Forms.Label();
+            this.lblTimerValue = new System.Windows.Forms.Label();
             this.AnswerTimer = new System.Windows.Forms.Timer(this.components);
             this.QuestionTimer = new System.Windows.Forms.Timer(this.components);
+            this.lblTimer = new System.Windows.Forms.Label();
             this.panelExercise.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -100,6 +101,9 @@
             // 
             // panelExercise
             // 
+            this.panelExercise.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.panelExercise.ColumnCount = 2;
             this.panelExercise.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.panelExercise.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 80F));
@@ -171,23 +175,34 @@
             this.btnStop.Text = "Stop";
             this.btnStop.UseVisualStyleBackColor = true;
             // 
-            // lblTimer
+            // lblTimerValue
             // 
-            this.lblTimer.AutoSize = true;
-            this.lblTimer.Location = new System.Drawing.Point(747, 30);
-            this.lblTimer.Name = "lblTimer";
-            this.lblTimer.Size = new System.Drawing.Size(0, 13);
-            this.lblTimer.TabIndex = 8;
+            this.lblTimerValue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTimerValue.AutoSize = true;
+            this.lblTimerValue.Location = new System.Drawing.Point(747, 30);
+            this.lblTimerValue.Name = "lblTimerValue";
+            this.lblTimerValue.Size = new System.Drawing.Size(0, 13);
+            this.lblTimerValue.TabIndex = 8;
             // 
             // AnswerTimer
             // 
             this.AnswerTimer.Interval = 5000;
             this.AnswerTimer.Tick += new System.EventHandler(this.AnswerTimer_Tick);
             // 
-            // QuestionTickTimer
+            // QuestionTimer
             // 
             this.QuestionTimer.Interval = 1000;
             this.QuestionTimer.Tick += new System.EventHandler(this.QuestionTickTimer_Tick);
+            // 
+            // lblTimer
+            // 
+            this.lblTimer.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTimer.AutoSize = true;
+            this.lblTimer.Location = new System.Drawing.Point(691, 30);
+            this.lblTimer.Name = "lblTimer";
+            this.lblTimer.Size = new System.Drawing.Size(50, 13);
+            this.lblTimer.TabIndex = 9;
+            this.lblTimer.Text = "Time left:";
             // 
             // TextExerciseForm
             // 
@@ -195,6 +210,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.lblTimer);
+            this.Controls.Add(this.lblTimerValue);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.panelExercise);
@@ -224,8 +240,9 @@
         private System.Windows.Forms.Label lblAnswer;
         private System.Windows.Forms.Label lblInput;
         private System.Windows.Forms.Label lblQuestion;
-        private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.Label lblTimerValue;
         private System.Windows.Forms.Timer AnswerTimer;
         private System.Windows.Forms.Timer QuestionTimer;
+        private System.Windows.Forms.Label lblTimer;
     }
 }
