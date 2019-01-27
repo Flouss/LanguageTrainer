@@ -99,6 +99,7 @@
             this.Name = "TextExerciseForm";
             this.Text = "Text Excercise";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TextExerciseForm_FormClosing);
+            this.Load += new System.EventHandler(this.TextExerciseForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
