@@ -39,11 +39,14 @@
             // 
             // cmbLesson
             // 
+            this.cmbLesson.DisplayMember = "Text";
+            this.cmbLesson.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLesson.FormattingEnabled = true;
             this.cmbLesson.Location = new System.Drawing.Point(21, 33);
             this.cmbLesson.Name = "cmbLesson";
             this.cmbLesson.Size = new System.Drawing.Size(126, 21);
             this.cmbLesson.TabIndex = 0;
+            this.cmbLesson.ValueMember = "Value";
             // 
             // lblLesson
             // 

@@ -11,7 +11,7 @@ namespace LanguageTrainer
         private readonly Form _mainForm;
         private readonly string EXERCISE_FOLDER = "TextExercises";
         private readonly string LESSON_PREFIX = "Lesson";
-        private Dictionary<string, string> LessonsDictionnary;
+        private List<LessonComboBoxItem> Lessons;
 
         public TextExerciseForm(Form mainForm)
         {
@@ -35,14 +35,16 @@ namespace LanguageTrainer
                 }
             }
 
-            LessonsDictionnary = new Dictionary<string, string>();
+            Lessons = new List<LessonComboBoxItem>();
             foreach (var lessonFile in Directory.GetFiles(EXERCISE_FOLDER))
             {
                 if (Path.GetFileName(lessonFile).StartsWith(LESSON_PREFIX) && Path.GetExtension(lessonFile).Equals(LESSON_EXTENSION, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    LessonsDictionnary.Add(Path.GetFileNameWithoutExtension(lessonFile), lessonFile);
+                    Lessons.Add(new LessonComboBoxItem(Path.GetFileNameWithoutExtension(lessonFile), lessonFile));
                 }
             }
+
+            cmbLesson.DataSource = Lessons;
         }
     }
 }
