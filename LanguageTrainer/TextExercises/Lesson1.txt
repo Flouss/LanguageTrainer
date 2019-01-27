@@ -1,3 +1,4 @@
 single=Ledig
-widowed=verwitwed
+widowed=verwitwet
 married=verheirated
+separated=geschieden

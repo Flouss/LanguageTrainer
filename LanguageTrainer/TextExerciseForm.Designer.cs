@@ -34,7 +34,6 @@
             this.lblQuestionValue = new System.Windows.Forms.Label();
             this.txtAnswer = new System.Windows.Forms.TextBox();
             this.lblAnswerValue = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
             this.panelExercise = new System.Windows.Forms.TableLayoutPanel();
             this.lblAnswer = new System.Windows.Forms.Label();
             this.lblInput = new System.Windows.Forms.Label();
@@ -42,6 +41,8 @@
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
             this.lblTimer = new System.Windows.Forms.Label();
+            this.AnswerTimer = new System.Windows.Forms.Timer(this.components);
+            this.QuestionTimer = new System.Windows.Forms.Timer(this.components);
             this.panelExercise.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -69,6 +70,7 @@
             // 
             this.lblQuestionValue.AutoSize = true;
             this.lblQuestionValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblQuestionValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblQuestionValue.Location = new System.Drawing.Point(158, 0);
             this.lblQuestionValue.Name = "lblQuestionValue";
             this.lblQuestionValue.Size = new System.Drawing.Size(615, 181);
@@ -82,21 +84,19 @@
             this.txtAnswer.Name = "txtAnswer";
             this.txtAnswer.Size = new System.Drawing.Size(612, 20);
             this.txtAnswer.TabIndex = 3;
+            this.txtAnswer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtAnswer_KeyUp);
             // 
             // lblAnswerValue
             // 
             this.lblAnswerValue.AutoSize = true;
             this.lblAnswerValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblAnswerValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAnswerValue.Location = new System.Drawing.Point(158, 253);
             this.lblAnswerValue.Name = "lblAnswerValue";
             this.lblAnswerValue.Size = new System.Drawing.Size(615, 109);
             this.lblAnswerValue.TabIndex = 4;
             this.lblAnswerValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblAnswerValue.Visible = false;
-            // 
-            // timer
-            // 
-            this.timer.Interval = 120;
             // 
             // panelExercise
             // 
@@ -179,6 +179,16 @@
             this.lblTimer.Size = new System.Drawing.Size(0, 13);
             this.lblTimer.TabIndex = 8;
             // 
+            // AnswerTimer
+            // 
+            this.AnswerTimer.Interval = 5000;
+            this.AnswerTimer.Tick += new System.EventHandler(this.AnswerTimer_Tick);
+            // 
+            // QuestionTickTimer
+            // 
+            this.QuestionTimer.Interval = 1000;
+            this.QuestionTimer.Tick += new System.EventHandler(this.QuestionTickTimer_Tick);
+            // 
             // TextExerciseForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -208,7 +218,6 @@
         private System.Windows.Forms.Label lblQuestionValue;
         private System.Windows.Forms.TextBox txtAnswer;
         private System.Windows.Forms.Label lblAnswerValue;
-        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.TableLayoutPanel panelExercise;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
@@ -216,5 +225,7 @@
         private System.Windows.Forms.Label lblInput;
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.Label lblTimer;
+        private System.Windows.Forms.Timer AnswerTimer;
+        private System.Windows.Forms.Timer QuestionTimer;
     }
 }

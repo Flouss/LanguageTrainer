@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,6 +15,8 @@ namespace LanguageTrainer
         private readonly string LESSON_PREFIX = "Lesson";
         private List<LessonComboBoxItem> Lessons;
         private Dictionary<string, string> lessonTuples;
+        private int IncorrectAnswerCount;
+        private int CorrectAnswerCount;
 
         public TextExerciseForm(Form mainForm)
         {
@@ -51,28 +54,66 @@ namespace LanguageTrainer
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            StartExercise();
+        }
+
+        private void StartExercise()
+        {
             lessonTuples = ParseLessonFile(((LessonComboBoxItem)cmbLesson.SelectedItem).Value);
             if (lessonTuples.Count == 0)
                 return;
 
+            lblTimer.Text = "60";
+            QuestionTimer.Start();
+            lblQuestionValue.ForeColor = Color.Black;
+            ResetAnswerCounts();
             panelExercise.Visible = true;
-
             txtAnswer.Focus();
-
             DisplayNextTuple();
+            QuestionTimer.Start();
+        }
 
-            timer.Start();
+        private void ResetAnswerCounts()
+        {
+            IncorrectAnswerCount = 0;
+            CorrectAnswerCount = 0;
         }
 
         private void DisplayNextTuple()
         {
+            if (lessonTuples.Count == 0)
+            {
+                CleanUpExerciseFinished();
+                DisplayScore();
+            }
+
             var keyValuePair = PopNextTuple();
             lblQuestionValue.Text = keyValuePair.Key;
             lblAnswerValue.Text = keyValuePair.Value;
         }
 
+        private void DisplayScore()
+        {
+            var total = CorrectAnswerCount + IncorrectAnswerCount;
+            lblQuestionValue.Text = $"Score: {CorrectAnswerCount}/{total}";
+
+            if (((float)CorrectAnswerCount) / total < 0.5)
+            {
+                lblQuestionValue.ForeColor = Color.Red;
+            }
+            else
+            {
+                lblQuestionValue.ForeColor = Color.Green;
+            }
+        }
+
         private KeyValuePair<string, string> PopNextTuple()
         {
+            if (lessonTuples.Count == 0)
+            {
+                return default(KeyValuePair<string, string>);
+            }
+
             var randomIndex = new Random().Next(0, lessonTuples.Count - 1);
             var keyValuePair = lessonTuples.ElementAt(randomIndex);
             lessonTuples.Remove(keyValuePair.Key);
@@ -95,6 +136,87 @@ namespace LanguageTrainer
             }
 
             return lessonTuples;
+        }
+
+        private void txtAnswer_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return)
+            {
+                DisplayAnswer();
+                QuestionTimer.Stop();
+                e.Handled = true;
+            }
+        }
+
+        private void DisplayAnswer()
+        {
+            if (txtAnswer.Text.Equals(lblAnswerValue.Text, StringComparison.CurrentCultureIgnoreCase))
+            {
+                DisplayAnswerAsCorrect();
+                CorrectAnswerCount++;
+            }
+            else
+            {
+                DisplayAnswerAsIncorrect();
+                IncorrectAnswerCount++;
+            }
+
+            AnswerTimer.Start();
+        }
+
+        private void DisplayAnswerAsIncorrect()
+        {
+            lblAnswerValue.Visible = true;
+            lblAnswerValue.ForeColor = Color.Red;
+        }
+
+        private void DisplayAnswerAsCorrect()
+        {
+            lblAnswerValue.Visible = true;
+            lblAnswerValue.ForeColor = Color.Green;
+        }
+
+        private void AnswerTimer_Tick(object sender, EventArgs e)
+        {
+            CleanUpForNextQuestion();
+            DisplayNextTuple();
+            QuestionTimer.Start();
+        }
+
+        private void CleanUpExerciseFinished()
+        {
+            QuestionTimer.Stop();
+            lblAnswerValue.Visible = false;
+            txtAnswer.Clear();
+        }
+
+        private void CleanUpForNextQuestion()
+        {
+            lblTimer.Text = "60";
+            AnswerTimer.Stop();
+            txtAnswer.Clear();
+            txtAnswer.Focus();
+            lblAnswerValue.Visible = false;
+        }
+
+        private void QuestionTickTimer_Tick(object sender, EventArgs e)
+        {
+            var lblTimerValue = int.Parse(lblTimer.Text) - 1;
+            lblTimer.Text = lblTimerValue.ToString();
+
+            if (lblTimerValue > 0 && lblTimerValue <= 10)
+            {
+                lblTimer.ForeColor = Color.Red;
+            }
+            else if (lblTimerValue == 0)
+            {
+                DisplayAnswer();
+                QuestionTimer.Stop();
+            }
+            else
+            {
+                lblTimer.ForeColor = Color.Black;
+            }
         }
     }
 }
