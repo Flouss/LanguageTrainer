@@ -73,6 +73,7 @@
             this.btnTexts.TabIndex = 1;
             this.btnTexts.Text = "Texts";
             this.btnTexts.UseVisualStyleBackColor = true;
+            this.btnTexts.Click += new System.EventHandler(this.btnTexts_Click);
             // 
             // MainWindow
             // 
