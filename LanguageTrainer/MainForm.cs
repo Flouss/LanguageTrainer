@@ -12,6 +12,9 @@ namespace LanguageTrainer
 
         private void btnNumbers_Click(object sender, EventArgs e)
         {
+            var exerciseForm = new NumberExercise(this);
+            Visible = false;
+            exerciseForm.Show();
         }
 
         private void btnTexts_Click(object sender, EventArgs e)
