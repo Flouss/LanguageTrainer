@@ -10,6 +10,7 @@ namespace LanguageTrainer
     public partial class TextExerciseForm : Form
     {
         private const string LESSON_EXTENSION = ".txt";
+        private const string TIMER_LABEL_DEFAULT_TEXT = "60";
         private readonly Form _mainForm;
         private readonly string EXERCISE_FOLDER = "TextExercises";
         private readonly string LESSON_PREFIX = "Lesson";
@@ -63,14 +64,13 @@ namespace LanguageTrainer
             if (lessonTuples.Count == 0)
                 return;
 
-            lblTimerValue.Text = "60";
+            lblTimerValue.Text = TIMER_LABEL_DEFAULT_TEXT;
             QuestionTimer.Start();
             lblQuestionValue.ForeColor = Color.Black;
             ResetAnswerCounts();
             panelExercise.Visible = true;
             txtAnswer.Focus();
             DisplayNextTuple();
-            QuestionTimer.Start();
         }
 
         private void ResetAnswerCounts()
@@ -83,8 +83,7 @@ namespace LanguageTrainer
         {
             if (lessonTuples.Count == 0)
             {
-                CleanUpExerciseFinished();
-                DisplayScore();
+                ExerciseFinished();
                 return;
             }
 
@@ -143,8 +142,16 @@ namespace LanguageTrainer
         {
             if (e.KeyCode == Keys.Return)
             {
-                DisplayAnswer();
-                QuestionTimer.Stop();
+                if (AnswerTimer.Enabled)
+                {
+                    AnswerTimer.Stop();
+                    NextQuestion();
+                }
+                else
+                {
+                    DisplayAnswer();
+                    QuestionTimer.Stop();
+                }
                 e.Handled = true;
             }
         }
@@ -179,6 +186,17 @@ namespace LanguageTrainer
 
         private void AnswerTimer_Tick(object sender, EventArgs e)
         {
+            NextQuestion();
+        }
+
+        private void ExerciseFinished()
+        {
+            CleanUpExerciseFinished();
+            DisplayScore();
+        }
+
+        private void NextQuestion()
+        {
             CleanUpForNextQuestion();
             DisplayNextTuple();
             QuestionTimer.Start();
@@ -194,7 +212,7 @@ namespace LanguageTrainer
 
         private void CleanUpForNextQuestion()
         {
-            lblTimerValue.Text = "60";
+            lblTimerValue.Text = TIMER_LABEL_DEFAULT_TEXT;
             AnswerTimer.Stop();
             txtAnswer.Clear();
             txtAnswer.Focus();

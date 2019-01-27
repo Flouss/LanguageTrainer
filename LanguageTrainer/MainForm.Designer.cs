@@ -28,22 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnNumbers = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnImages = new System.Windows.Forms.Button();
             this.btnTexts = new System.Windows.Forms.Button();
+            this.btnNumbers = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnNumbers
-            // 
-            this.btnNumbers.Location = new System.Drawing.Point(61, 149);
-            this.btnNumbers.Name = "btnNumbers";
-            this.btnNumbers.Size = new System.Drawing.Size(171, 153);
-            this.btnNumbers.TabIndex = 0;
-            this.btnNumbers.Text = "Numbers";
-            this.btnNumbers.UseVisualStyleBackColor = true;
-            this.btnNumbers.Click += new System.EventHandler(this.btnNumbers_Click);
             // 
             // panel1
             // 
@@ -58,22 +49,38 @@
             // 
             // btnImages
             // 
+            this.btnImages.Image = ((System.Drawing.Image)(resources.GetObject("btnImages.Image")));
             this.btnImages.Location = new System.Drawing.Point(537, 149);
             this.btnImages.Name = "btnImages";
             this.btnImages.Size = new System.Drawing.Size(171, 153);
             this.btnImages.TabIndex = 2;
             this.btnImages.Text = "Images";
+            this.btnImages.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnImages.UseVisualStyleBackColor = true;
             // 
             // btnTexts
             // 
+            this.btnTexts.Image = ((System.Drawing.Image)(resources.GetObject("btnTexts.Image")));
             this.btnTexts.Location = new System.Drawing.Point(305, 149);
             this.btnTexts.Name = "btnTexts";
             this.btnTexts.Size = new System.Drawing.Size(171, 153);
             this.btnTexts.TabIndex = 1;
             this.btnTexts.Text = "Texts";
+            this.btnTexts.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.btnTexts.UseVisualStyleBackColor = true;
             this.btnTexts.Click += new System.EventHandler(this.btnTexts_Click);
+            // 
+            // btnNumbers
+            // 
+            this.btnNumbers.Image = ((System.Drawing.Image)(resources.GetObject("btnNumbers.Image")));
+            this.btnNumbers.Location = new System.Drawing.Point(61, 149);
+            this.btnNumbers.Name = "btnNumbers";
+            this.btnNumbers.Size = new System.Drawing.Size(171, 153);
+            this.btnNumbers.TabIndex = 0;
+            this.btnNumbers.Text = "Numbers";
+            this.btnNumbers.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.btnNumbers.UseVisualStyleBackColor = true;
+            this.btnNumbers.Click += new System.EventHandler(this.btnNumbers_Click);
             // 
             // MainWindow
             // 
